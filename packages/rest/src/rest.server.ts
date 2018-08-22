@@ -151,7 +151,20 @@ export class RestServer extends Context implements Server, HttpServerLike {
     return this._httpServer ? this._httpServer.listening : false;
   }
 
+  /**
+   * The base url for the server, including the basePath if set
+   */
   get url(): string | undefined {
+    let serverUrl = this.rootUrl;
+    if (!serverUrl) return serverUrl;
+    serverUrl = serverUrl + (this._basePath || '');
+    return serverUrl;
+  }
+
+  /**
+   * The root url for the server without the basePath
+   */
+  get rootUrl(): string | undefined {
     return this._httpServer && this._httpServer.url;
   }
 

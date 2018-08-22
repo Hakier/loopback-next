@@ -33,13 +33,13 @@ export function createClientForHandler(
  * @param app A running (listening) instance of a RestApplication.
  */
 export function createRestAppClient(app: RestApplicationLike) {
-  const url = app.restServer.url;
-  if (!url) {
+  const rootUrl = app.restServer.rootUrl;
+  if (!rootUrl) {
     throw new Error(
       `Cannot create client for ${app.constructor.name}, it is not listening.`,
     );
   }
-  return supertest(url);
+  return supertest(rootUrl);
 }
 
 /*
@@ -53,4 +53,5 @@ export interface RestApplicationLike {
 
 export interface RestServerLike {
   url?: string;
+  rootUrl?: string;
 }
