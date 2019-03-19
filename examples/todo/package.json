@@ -3,6 +3,8 @@
   "version": "1.5.1",
   "description": "Tutorial example on how to build an application with LoopBack 4.",
   "main": "index.js",
+  "__types_comment": "FIXME(bajtos) use 'dist/index.d.ts' once we enable Project References",
+  "types": "src/index.ts",
   "engines": {
     "node": ">=8.9"
   },
