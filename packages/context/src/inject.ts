@@ -357,6 +357,18 @@ export namespace inject {
     );
     return inject('', metadata, resolveFromConfig);
   };
+
+  export const configGetter = function injectConfigGetter(
+    configPath?: string,
+    metadata?: InjectionMetadata,
+  ) {
+    configPath = configPath || '';
+    metadata = Object.assign(
+      {configPath, decorator: '@inject.configGetter', optional: true},
+      metadata,
+    );
+    return inject('', metadata, resolveAsGetterFromConfig);
+  };
 }
 
 function resolveAsGetter(
@@ -424,6 +436,16 @@ function resolveFromConfig(
     session,
     optional: meta.optional,
   });
+}
+
+function resolveAsGetterFromConfig(
+  ctx: Context,
+  injection: Injection,
+  session?: ResolutionSession,
+) {
+  return async function getter() {
+    return await resolveFromConfig(ctx, injection, session);
+  };
 }
 
 /**
